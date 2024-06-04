@@ -1,0 +1,33 @@
+# Use the official Node.js image
+FROM node:21
+
+# Install zsh
+RUN apt-get update && apt-get install -y zsh
+# Install hyperfine using apt
+RUN apt-get update && \
+    apt-get install -y curl && \
+RUN curl -fsSL https://bun.sh/install | bash && \
+  ln -s $HOME/.bun/bin/bun /usr/local/bin/bun
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code to the container
+COPY . .
+
+# Expose the port your app runs on
+EXPOSE 3000
+# Set the maximum memory units environment variable
+ENV MAX_MEMORY_UNITS=MB
+
+# Set the TIMEFMT variable
+ENV TIMEFMT='%J   %U  user %S system %P cpu %*E total max memory:%M '$MAX_MEMORY_UNITS''
+# Run the command with zsh time and node
+CMD ["zsh", "-c", "time node index.js 10000"]
+
+

@@ -1,0 +1,11 @@
+{
+  "name": "bpbunapp-",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "config": "^3.3.11",
+    "mysql2": "^3.9.3",
+    "pg": "^8.11.5",
+    "sequelize": "^6.37.2"
+  }
+}

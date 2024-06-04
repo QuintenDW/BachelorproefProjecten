@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: Test12345
+      POSTGRES_DB: review
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  bun:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: Test12345
+      DB_DATABASE: review
+      DB_DIALECT: postgres

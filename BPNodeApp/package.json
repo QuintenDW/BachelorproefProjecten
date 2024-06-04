@@ -1,0 +1,17 @@
+{
+  "name": "node-applicatie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.11",
+    "mysql2": "^3.9.3",
+    "pg": "^8.11.5",
+    "sequelize": "^6.37.2"
+  }
+}
